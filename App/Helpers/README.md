@@ -4,10 +4,9 @@
 
 ------------------------------
 
-## Welcome the Moby Framework!
+## Helpers
 
-Moby is the PHP framework that came to simplify your life! With an easy-to-use framework, clean and enjoyable codes, fast and functional, Moby Framework is the perfect choice for you who likes to program.
-
+to describe
 
 ------------------------------
 ## Official Documentation

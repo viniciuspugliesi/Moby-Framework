@@ -1,0 +1,93 @@
+<?php
+
+/*
+| -------------------------------------------------------------------
+| -------------------------------------------------------------------
+|   Console of Moby Framework
+| -------------------------------------------------------------------
+| -------------------------------------------------------------------
+| 
+|  
+|   Available commands:
+| -------------------------------------------------------------------
+|
+|   $ php moby
+|       (Show information of Moby Framework)
+|
+|   $ php moby help
+|       (Show the avaliable commands for use)
+|
+|
+|   $ php moby make:request {request-name}
+|       (Create one new Request)
+|
+|
+|   $ php moby make:controller {controller-name}
+|       (Create one new Controller)
+|
+|
+|   $ php moby make:model {model-name}
+|       (Create one new Model)
+|
+|
+|   $ php moby make:model --database {table-name}
+|       (Create one new Model by table name)
+|
+|
+|   $ php moby make:models --database
+|       (Create all Models according the database)
+|
+|
+|   $ php moby make:crud --database {table-name}
+|       (Create new Crud by table name)
+|
+|
+|   $ php moby make:cruds --database
+|       (Create all Cruds according the database)
+|
+*/
+
+
+/*
+| -------------------------------------------------------------------
+|  Set console moby
+| -------------------------------------------------------------------
+|
+|   Set true for console moby for execute console
+|
+*/
+$consoleMoby = true;
+
+
+/*
+| -------------------------------------------------------------------
+|  Autoload applicaiton
+| -------------------------------------------------------------------
+|
+|   Require autoload application for initialize application
+|
+*/
+require_once __DIR__.'/bootstrap/autoload.php';
+
+
+/*
+| -------------------------------------------------------------------
+|  Autoload Console Moby
+| -------------------------------------------------------------------
+|
+|   Require autoload console for initialize application console
+|
+*/
+$status = require_once __DIR__.'/bootstrap/moby.php';
+
+
+/*
+| -------------------------------------------------------------------
+|  Show the status return of command that was entered
+| -------------------------------------------------------------------
+|
+|  * If the command does not exist, returns the message and some 
+|    commands tips
+|
+*/
+exit($status);
