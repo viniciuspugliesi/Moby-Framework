@@ -19,8 +19,8 @@ class ValidationRoute implements InterfaceValidationRoute
      * @param string $call (method)
      * @return true or $instance
      */
-	public function validar_url($route, $call, $group = false)
-	{
+    public function validar_url($route, $call, $group = false)
+    {
         $uri = $this->hasLocalhost();
         
         $this->_url   = $uri;
@@ -58,6 +58,12 @@ class ValidationRoute implements InterfaceValidationRoute
         $uri = $_SERVER['REQUEST_URI'];
         
         if (!$GLOBALS['localhost']) {
+            if ($_SERVER['HTTP_X_FORWARDED_PROTO'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] == $GLOBALS['baseurl']) {
+                return '/';
+            }
+            
+            $uri = str_replace($GLOBALS['baseurl'], '', $_SERVER['HTTP_X_FORWARDED_PROTO'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+            
             return $uri;
         }
         

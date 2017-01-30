@@ -1,14 +1,14 @@
 {
-    "name": "moby/moby-framework",
-    "description": "The Moby Framework.",
-    "keywords": ["framework", "Moby"],
+    "name": "moby/moby",
+    "description": "The Moby Framework - Simplify your codes and your life!",
+    "keywords": ["Framework", "Moby", "Moby Framework", "PHP", "Framework PHP"],
 	"homepage": "http://mobyframework.com",
     "license": "MIT",
     "type": "project",
 	"support": {
-		"forum": "http://forum.mobyframework.com/",
-		"wiki": "https://github.com/viniciusMoby/mobyframework",
-		"source": "https://github.com/bcit-ci/mobyframework"
+		"forum": "http://mobyframework.com/Forum",
+		"wiki": "https://github.com/mobyframework/Moby-Framework",
+		"source": "https://github.com/mobyframework/Moby-Framework"
 	},
     "autor":{
         "Nome": "Vinicius Vicente de Lima Pugliesi",
