@@ -38,6 +38,6 @@ class ConfigException extends Exception
      */
     public static function maintenanceWebsite()
     {
-        // return view('Exceptions/maintenance-website');
+        return view('Exceptions/maintenance-website');
     }
 }

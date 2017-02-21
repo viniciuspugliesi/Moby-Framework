@@ -26,8 +26,8 @@ return [
     */
     
     'mysql' => [
-        'host'      => '',
-        'user'      => '',
+        'host'      => 'localhost',
+        'user'      => 'viniciuspugliesi',
         'pass'      => '',
         'database'  => '',
         'charset'   => 'utf8',

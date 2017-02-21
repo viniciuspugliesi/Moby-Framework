@@ -1,6 +1,6 @@
 {
-    "name": "moby/moby",
-    "description": "The Moby Framework - Simplify your codes and your life!",
+    "name": "moby/moby-framework",
+    "description": "The Moby Framework.",
     "keywords": ["Framework", "Moby", "Moby Framework", "PHP", "Framework PHP"],
 	"homepage": "http://mobyframework.com",
     "license": "MIT",
@@ -29,7 +29,7 @@
 			"Console\\":"vendor/moby/Console/",
 			"Http\\":"vendor/moby/Http/",
 			"Exception\\":"vendor/moby/Exception",
-			"Hash\\":"vendor/moby/Hash",
+			"Hash\\":"vendor/moby/Hash/",
 			"Helpers\\":"vendor/moby/Helpers/",
 			"Mail\\":"vendor/moby/Mail/",
 			"Model\\":"vendor/moby/Model/",

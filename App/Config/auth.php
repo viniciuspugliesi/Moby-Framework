@@ -15,14 +15,14 @@ return [
     
     'users' => [
         'auth' => [
-            'middleware' => App\Http\Middleware\Auth::class,
-            'Model'      => App\Models\User::class
+            'middleware' => App\Http\Middleware\Authenticable::class,
+            'model'      => App\Models\User::class
         ],
         
-        // 'admin' => [
-        //     'middleware' => App\Http\Middleware\Admin::class,
-        //     'Model'      => App\Models\Admin::class
-        // ],
+        'admin' => [
+            'middleware' => App\Http\Middleware\Admin::class,
+            'model'      => App\Models\Admin::class
+        ],
         
         
     ],

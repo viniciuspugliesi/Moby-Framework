@@ -2,14 +2,14 @@
 
 /*
 | -------------------------------------------------------------------
-|  Caracter of application
+|  Display Erros
 | -------------------------------------------------------------------
 |
-|  By default, the application has the caracter UTF-8
+|  By default, the application has the display errors true
 |
 */
 
-$DISPLAY_ERRORS = true;
+$DISPLAY_ERRORS = true; // false
 
 
 /*
@@ -39,7 +39,7 @@ header('Content-Type: text/html; charset=utf-8');
 | 
 */
 
-$baseurl   = '';
+$baseurl   = 'https://mobyframework-viniciuspugliesi.c9users.io/';
 $localhost = false;
 
 
