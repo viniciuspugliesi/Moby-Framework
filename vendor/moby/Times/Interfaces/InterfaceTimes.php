@@ -19,4 +19,9 @@ interface InterfaceTimes
     // public static function diff($date1, $date2);
     
     // public static function compare($date1, $compare, $date2);
+    
+    // public static function monthFull()
+    
+    // public static function weekFull()
+	
 }

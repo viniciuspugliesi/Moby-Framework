@@ -19,8 +19,8 @@ class ValidationRoute implements InterfaceValidationRoute
      * @param string $call (method)
      * @return true or $instance
      */
-    public function validar_url($route, $call, $group = false)
-    {
+	public function validar_url($route, $call, $group = false)
+	{
         $uri = $this->hasLocalhost();
         
         $this->_url   = $uri;

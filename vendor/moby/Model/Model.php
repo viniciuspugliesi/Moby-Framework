@@ -76,13 +76,6 @@ abstract class Model extends Connection implements InterfaceModel
 	private $_or_where;
     
     /**
-     * Like of query
-     *
-     * @var string
-     */
-	private $_like;
-    
-    /**
      * Limit of query
      *
      * @var string
@@ -103,6 +96,10 @@ abstract class Model extends Connection implements InterfaceModel
      * @var string
      */
 	protected $_query;
+	
+	
+	
+	protected $historyQuery;
     
     
     /**
@@ -173,6 +170,7 @@ abstract class Model extends Connection implements InterfaceModel
         $instance = static::getInstance();
         
         $instance->_select = 'SELECT ' . $content;
+        
         return $instance;
     }
     
@@ -196,16 +194,30 @@ abstract class Model extends Connection implements InterfaceModel
      * @param string $param1
 	 * @return $this
      */	
-	public static function where($param1, $param2 = false)
+	public static function where($param1, $compare = ' = ', $param2 = false)
     {
         $instance = static::getInstance();
         
         if ($param2) {
-            $instance->_where .= ' WHERE ' . $param1 . ' = ' . $param2;
-        }
-        
-        if (is_array($param1)) {
-            $instance->_where .= ' WHERE ' . $param1[0] . ' = ' . $param1[1];
+            if ($instance->_where) {
+                $instance->_where .= ' AND ' . $param1 . $compare . $param2;
+            } else {
+                $instance->_where .= ' WHERE ' . $param1 . $compare . $param2;
+            }
+        } elseif (!$param2 && !is_array($param1)) {
+            if ($instance->_where) {
+                $instance->_where .= ' AND ' . $param1 . ' = ' . $compare;
+            } else {
+                $instance->_where .= ' WHERE ' . $param1 . ' = ' . $compare;
+            }
+        } else {
+            foreach ($param1 as $key => $value) {   
+                if ($instance->_where) {
+                    $instance->_where .= ' AND ' . $key . ' = "' . $value . '"';
+                } else {
+                    $instance->_where = ' WHERE ' . $key . ' = "' . $value . '"';
+                }
+            }
         }
         
         return $instance;
@@ -219,16 +231,30 @@ abstract class Model extends Connection implements InterfaceModel
      * @param string $param1
 	 * @return $this
      */	
-	public static function or_where($param1, $param2 = false)
+	public static function or_where($param1, $compare = ' = ', $param2 = false)
     {
         $instance = static::getInstance();
         
         if ($param2) {
-            $instance->_or_where .= ' OR ' . $param1 . ' = ' . $param2;
-        }
-        
-        if (is_array($param1)) {
-            $instance->_or_where .= ' OR ' . $param1[0] . ' = ' . $param1[1];;
+            if ($instance->_where) {
+                $instance->_where .= ' AND ' . $param1 . $compare . $param2;
+            } else {
+                $instance->_where .= ' OR ' . $param1 . $compare . $param2;
+            }
+        } elseif (!$param2 && !is_array($param1)) {
+            if ($instance->_where) {
+                $instance->_where .= ' AND ' . $param1 . ' = ' . $compare;
+            } else {
+                $instance->_where .= ' OR ' . $param1 . ' = ' . $compare;
+            }
+        } else {
+            foreach ($param1 as $key => $value) {   
+                if ($instance->_where) {
+                    $instance->_where .= ' AND ' . $key . ' = "' . $value . '"';
+                } else {
+                    $instance->_where = ' OR ' . $key . ' = "' . $value . '"';
+                }
+            }
         }
         
         return $instance;
@@ -273,13 +299,11 @@ abstract class Model extends Connection implements InterfaceModel
      * @param string $type
 	 * @return $this
      */	
-	public static function join($table, $relation, $type)
+	public static function join($table, $relation, $table_reference, $type = 'INNER')
     {
         $instance = static::getInstance();
         
-        if (is_array($join)) {
-            $instance->_join = ' ' . $type . ' join ' . $table . ' ON ' . $relation ;
-        }
+        $instance->_join .= ' ' . $type . ' JOIN ' . $table . ' ON ' . $relation . ' = '. $table_reference;
         
         return $instance;
     }
@@ -297,9 +321,9 @@ abstract class Model extends Connection implements InterfaceModel
         $instance = static::getInstance();
         
         if ($instance->_where) {
-            $instance->_like = ' AND ' . $field . ' LIKE "' . $like . '"';
+            $instance->_where = ' AND ' . $field . ' LIKE "' . $like . '"';
         } else {
-            $instance->_like = ' WHERE ' . $field . ' LIKE "' . $like . '"';
+            $instance->_where = ' WHERE ' . $field . ' LIKE "' . $like . '"';
         }
         
         return $instance;
@@ -345,6 +369,7 @@ abstract class Model extends Connection implements InterfaceModel
         $instance = static::getInstance();
         
         $instance->getQuery();
+        
         return (int)$instance->_query->rowCount();
     }
     
@@ -398,10 +423,14 @@ abstract class Model extends Connection implements InterfaceModel
     {
         $this->connect();
         
-        if (!$this->_query)
-            $this->_query = $this->_select . ' FROM ' . $this->table . $this->_join . $this->_where . $this->_or_where . $this->_like . $this->_limit . $this->_order_by; 
+        $this->_query = $this->_select . ' FROM ' . $this->table . $this->_join . $this->_where . $this->_or_where . $this->_limit . $this->_order_by; 
+        
+        $this->historyQuery = $this->_query;
+            
+        $this->clearAttributes();
         
         $this->_query = $this->pdo->prepare($this->_query);
+        
 	    return $this->_query->execute();
     }
     
@@ -558,5 +587,23 @@ abstract class Model extends Connection implements InterfaceModel
         }
         
         return Model::$instance;
+    }
+    
+    
+    public function clearAttributes()
+    {
+        $this->_select      = '';
+        $this->_join        = '';
+        $this->_where       = '';
+        $this->_or_where    = '';
+        $this->_limit       = '';
+        $this->_order_by    = '';
+        self::$instance     = '';
+    }
+    
+    
+    public static function historyQuery()
+    {
+        return static::getInstance()->historyQuery;
     }
 }

@@ -105,7 +105,7 @@ class View
      */
     public function randomNameView()
     {
-        return rand(0, 999999999);
+        return rand(0, 9999999999);
     }
     
     

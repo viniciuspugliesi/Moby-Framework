@@ -94,22 +94,29 @@ class Request implements InterfaceRequest
      * @return string OR BOOL(false)
      */
     public function filter_input($param, $restriction)
-    {  
-        /**
-         * EXEMPLE VALIDATION:
-         * 
-         * FILTER_VALIDATE_URL
-         * FILTER_VALIDATE_EMAIL
-         * FILTER_VALIDATE_BOOLEAN
-         * FILTER_VALIDATE_IP
-         * FILTER_FLAG_NO_PRIV_RANGE 
-         * FILTER_FLAG_ALLOW_OCTAL
-         * FILTER_VALIDATE_INT
-         * FILTER_SANITIZE_EMAIL
-         */ 
-        if (!filter_var($this->post[$param], $restriction))
+    {
+        if (!filter_var($this->post[$param], $restriction)) {
             return false;
-            
+        }
+        
+        return $this->post[$param];
+    }
+    
+    
+    /**
+     * Function responsible for return one input with validation
+     *
+     * @param string $param (Parameter of $_POST)
+     * @param type_filter $restriction (Validation of input)
+     * 
+     * @return string OR BOOL(false)
+     */
+    public function filter_has_var($param, $restriction)
+    {
+        if (!filter_has_var($restriction, $this->post[$param])) {
+            return false;
+        }
+        
         return $this->post[$param];
     }
     

@@ -28,41 +28,6 @@ class Session
     
     
     /**
-     * Returns one session Specific or all
-     * 
-     * @param string $key
-     * @return string
-     */
-    public static function pull($key = false)
-    {
-        if (!$_SESSION[$key])
-            return $_SESSION;
-            
-        return $_SESSION[$key];
-    }
-    
-    
-    /**
-     * Create one new session
-     * 
-     * @param string/array $key
-     * @param string $value
-     * @return bool
-     */
-    public static function put($key, $value = null)
-    {
-        if (is_array($key))
-            foreach ($key as $k => $v)
-                $_SESSION[$k] = $v;
-        
-        else
-            $_SESSION[$key] = $value;
-
-        return true;
-    }
-    
-    
-    /**
      * Create one new session
      * 
      * @param string/array $key
@@ -79,26 +44,6 @@ class Session
             $_SESSION[$key] = $value;
         }
         
-        return true;
-    }
-    
-    
-    /**
-     * Create one new session
-     * 
-     * @param string/array $key
-     * @param string $value
-     * @return bool
-     */
-    public static function push($key, $value)
-    {
-        if (is_array($key))
-            foreach ($key as $k => $v)
-                $_SESSION[$k] = $v;
-        
-        else
-            $_SESSION[$key] = $value;
-
         return true;
     }
     
@@ -126,26 +71,6 @@ class Session
      * @param string $value
      * @return bool
      */
-    public static function flashdata($key, $value)
-    {
-        if (is_array($key))
-            foreach ($key as $k => $v)
-                $_SESSION[$k] = $v;
-                    
-        else
-            $_SESSION[$key] = $value;
-        
-        return true;
-    }
-    
-    
-    /**
-     * Set one session frashdata
-     * 
-     * @param string/array $key
-     * @param string $value
-     * @return bool
-     */
     public static function flash($key, $value)
     {
         if (is_array($key))
@@ -160,101 +85,12 @@ class Session
     
     
     /**
-     * Set one session frashdata
-     * 
-     * @param string/array $key
-     * @param string $value
-     * @return bool
-     */
-    public static function setFlashdata($key, $value)
-    {
-        if (is_array($key))
-            foreach ($key as $k => $v)
-                $_SESSION[$k] = $v;
-                    
-        else
-            $_SESSION[$key] = $value;
-        
-        return true;
-    }
-    
-    
-    /**
-     * Returns one session flashdata
-     * 
-     * @param string $key
-     * @return string/bool
-     */
-    public static function getFlashdata($key = false)
-    {
-        if (!$_SESSION[$key])
-            return $_SESSION;
-            
-        return $_SESSION[$key];
-    }
-    
-    
-    /**
-     * Returns one session flashdata
-     * 
-     * @param string $key
-     * @return string/bool
-     */
-    public static function getFlash($key = false)
-    {
-        if (!$_SESSION[$key])
-            return $_SESSION;
-            
-        return $_SESSION[$key];
-    }
-    
-    
-    /**
-     * Verify if exists the session frashdata
-     * 
-     * @param string $key
-     * @return bool
-     */
-    public static function hasFlashdata($key)
-    {
-        if (!$_SESSION[$key])
-            return false;
-            
-        return true;
-    }
-    
-    
-    /**
-     * Destroy the session frashdata
-     * 
-     * @param string $key
-     * @return boll
-     */
-    public static function destroyFlashdata($key)
-    {
-        return Session::SessionDestroy($key);
-    }
-    
-    
-    /**
      * Destroy the session
      * 
      * @param string $key
      * @return boll
      */
-    public static function destroy($key)
-    {
-        return Session::SessionDestroy($key);
-    }
-    
-    
-    /**
-     * Destroy the session
-     * 
-     * @param string $key
-     * @return boll
-     */
-    public static function delete($key)
+    public static function forget($key)
     {
         return Session::SessionDestroy($key);
     }
@@ -265,7 +101,7 @@ class Session
      * 
      * @return bool
      */
-    public static function destroyAll()
+    public static function forgetAll()
     {
         return Session::SessionDestroy();
     }
@@ -276,7 +112,7 @@ class Session
      * 
      * @return bool
      */
-    public static function SessionDestroy($key = false)
+    private static function SessionDestroy($key = false)
     {
         if (!$key)
             return session_destroy();

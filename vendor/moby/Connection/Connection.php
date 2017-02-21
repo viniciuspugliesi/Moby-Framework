@@ -153,10 +153,6 @@ class Connection implements InterfaceConnection
 				throw new RenderException('Database error! USER not be null', 1080);
 			}
 			
-			if (!isset($config_connection['pass']) || !$config_connection['pass']) {
-				throw new RenderException('Database error! PASS not be null', 1080);
-			}
-			
 			if (!isset($config_connection['charset']) || !$config_connection['charset']) {
 				throw new RenderException('Database error! CHARSET not be null', 1080);
 			}
@@ -169,7 +165,7 @@ class Connection implements InterfaceConnection
 				throw new RenderException('Database error! DNS not be null', 1080);
 			}
 		} catch(RenderException $e) {
-		    $renderExcepiton->render($e->showErrors(), $e);
+		    $e->render($e->showErrors(), $e);
 		}
 		
 		$this->host		= $config_connection['host'];

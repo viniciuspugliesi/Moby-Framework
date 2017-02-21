@@ -54,10 +54,8 @@ class Times implements InterfaceTimes
     {
         if (strripos($return, '-')) {
             $return = explode('-', strtolower($return));
-            
         } else if (strripos($return, '/')) {
             $return = explode('/', strtolower($return));
-            
         } else {
             return false;
         }
